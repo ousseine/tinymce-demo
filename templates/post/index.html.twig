@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Post index{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Listes des articles</h1>
+
+        <div class="top d-flex justify-content-end">
+            <a class="btn btn-sm btn-primary" href="{{ path('app_post_new') }}">Create new</a>
+        </div>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Titre</th>
+                <th>Date de publication</th>
+                <th>actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for post in posts %}
+                <tr>
+                    <td>#{{ post.id }}</td>
+                    <td>{{ post.title }}</td>
+                    <td>{{ post.publishedAt ? post.publishedAt|date('Y-m-d H:i:s') : '' }}</td>
+                    <td class="d-flex justify-content-start">
+                        <a class="btn btn-sm btn-info me-1" href="{{ path('app_post_show', {'id': post.id}) }}">show</a>
+                        <a class="btn btn-sm btn-warning" href="{{ path('app_post_edit', {'id': post.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
